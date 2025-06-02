@@ -6,6 +6,7 @@ import html2pdf from 'html2pdf.js';
 import ClassicTemplate from '../templates/ClassicTemplate';
 import ModernTemplate from '../templates/ModernTemplate';
 import MinimalisticTemplate from '../templates/MinimalisticTemplate';
+import CustomTemplate from '../templates/CustomTemplate';
 
 function CertificatePreview() {
   const { id } = useParams();
@@ -32,14 +33,25 @@ function CertificatePreview() {
   const renderTemplate = () => {
     if (!certificate) return null;
 
+    // Create a copy of the certificate data to avoid mutating the original
+    const certificateData = { ...certificate };
+
+    // If this is a custom template and we have template data, include it
+    if (certificate.templateType === 'custom' && certificate.customTemplate) {
+      // Make sure the custom template data is properly included
+      certificateData.customTemplate = certificate.customTemplate;
+    }
+
     switch (certificate.templateType) {
       case 'modern':
-        return <ModernTemplate certificate={certificate} />;
+        return <ModernTemplate certificate={certificateData} />;
       case 'minimalistic':
-        return <MinimalisticTemplate certificate={certificate} />;
+        return <MinimalisticTemplate certificate={certificateData} />;
+      case 'custom':
+        return <CustomTemplate certificate={certificateData} />;
       case 'classic':
       default:
-        return <ClassicTemplate certificate={certificate} />;
+        return <ClassicTemplate certificate={certificateData} />;
     }
   };
 

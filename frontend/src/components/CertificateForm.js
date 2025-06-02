@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Button, Row, Col, Card } from 'react-bootstrap';
+import { Form, Button, Row, Col, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
+import TemplateManager from './TemplateManager';
 
 function CertificateForm() {
   const navigate = useNavigate();
@@ -16,11 +17,13 @@ function CertificateForm() {
     assignedDate: new Date(),
     duration: '1 year',
     recipientEmail: 'john.doe@example.com',
-    templateType: 'classic'
+    templateType: 'classic',
+    customTemplate: null
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showTemplateManager, setShowTemplateManager] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,11 +40,20 @@ function CertificateForm() {
     }));
   };
 
-  const handleTemplateSelect = (templateType) => {
+  const handleTemplateSelect = (templateType, templateData = null) => {
     setFormData(prevState => ({
       ...prevState,
-      templateType
+      templateType,
+      customTemplate: templateType === 'custom' ? templateData : null
     }));
+    
+    if (templateType === 'custom' && templateData) {
+      setShowTemplateManager(false);
+    }
+  };
+  
+  const handleOpenTemplateManager = () => {
+    setShowTemplateManager(true);
   };
 
   const handleSubmit = async (e) => {
@@ -213,6 +225,29 @@ function CertificateForm() {
               <Card.Text>Clean and simple design with minimal elements</Card.Text>
             </Card.Body>
           </Card>
+
+          <Card 
+            className={`template-option ${formData.templateType === 'custom' ? 'selected' : ''}`}
+            onClick={handleOpenTemplateManager}
+          >
+            <div className="template-image">
+              {formData.customTemplate ? (
+                <img 
+                  src={formData.customTemplate.url} 
+                  alt="Custom Template Preview" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : 'Custom'}
+            </div>
+            <Card.Body>
+              <Card.Title>Custom Template</Card.Title>
+              <Card.Text>
+                {formData.customTemplate 
+                  ? formData.customTemplate.name 
+                  : 'Upload your own template'}
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </div>
 
         <div className="mt-4 text-center">
@@ -227,6 +262,12 @@ function CertificateForm() {
           </Button>
         </div>
       </Form>
+      
+      <TemplateManager 
+        show={showTemplateManager} 
+        onClose={() => setShowTemplateManager(false)}
+        onSelect={(template) => handleTemplateSelect('custom', template)}
+      />
     </div>
   );
 }
