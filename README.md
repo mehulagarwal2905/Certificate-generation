@@ -2,7 +2,7 @@
 
 A MERN stack application for generating professional certificates with customizable templates and email functionality.
 
-![Certificate Generator Preview](https://via.placeholder.com/800x400?text=Certificate+Generator+Preview)
+
 
 ## ✨ Features
 
