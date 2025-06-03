@@ -9,7 +9,6 @@ A MERN stack application for generating professional certificates with customiza
 - Create beautiful, customizable certificates
 - Three modern certificate templates (Classic, Modern, Minimalistic)
 - Generate and download certificates as PDF
-- Email certificates directly to recipients
 - Responsive design that works on all devices
 - Real-time preview of certificate templates
 
@@ -50,9 +49,7 @@ Create a `.env` file in the backend directory with the following variables:
 
 ```env
 PORT=5000
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-app-password
-```
+'''
 
 > **Note**: If using Gmail, you'll need to generate an App Password if you have 2FA enabled, or enable "Less secure app access" in your Google Account settings.
 
@@ -110,8 +107,6 @@ Create a `.env` file in the `backend` directory with the following variables:
 
 ```env
 PORT=5000
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-email-password
 ```
 
 ### Email Setup
@@ -149,8 +144,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - [html2pdf.js](https://ekoopmans.github.io/html2pdf.js/) - Client-side HTML to PDF generation
 - [React Icons](https://react-icons.github.io/react-icons/) - Popular icons for React projects
 
-## 📧 Contact
-
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - your.email@example.com
-
-Project Link: [https://github.com/yourusername/certificate-generator](https://github.com/yourusername/certificate-generator)
