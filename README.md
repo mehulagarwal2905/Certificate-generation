@@ -113,14 +113,7 @@ PORT=5000
 
 To enable email functionality:
 
-1. **For Gmail**:
-   - Go to your Google Account settings
-   - Enable "Less secure app access" or
-   - If you have 2FA enabled, generate an App Password
-   - Use the App Password in the `EMAIL_PASSWORD` field
 
-2. **For other email providers**:
-   - Update the SMTP settings in the `sendCertificateEmail` function in `certificateController.js`
 
 ## 🤝 Contributing
 
